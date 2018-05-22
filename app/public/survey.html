@@ -6,10 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Survey</title>
   <!--  -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script> -->
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script> -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 
@@ -21,7 +25,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 
   <!-- Our CSS link -->
-  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
 </head>
 
 <body>
@@ -39,13 +43,13 @@
       <div class="form-group">
         <div class="col-sm-offset-2 col-lg-12">
           <label for="exampleInputName1"></label>
-          <input type="input" class="form-control" id="exampleInputName1" placeholder="Name">
+          <input type="input" class="form-control" id="userName" placeholder="Name">
         </div>
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-12">
           <label for="exampleInputPhoto1">Link to Photo Image (Required)</label>
-          <input type="inpyt" class="form-control" id="exampleInputPhoto1" placeholder="Image">
+          <input type="inpyt" class="form-control" id="userPhoto" placeholder="Image">
         </div>
     </form>
     <br>
@@ -66,7 +70,7 @@
     <div class="input-field col s12">
       <p>Question 2</p>
       <p>How well do you travel?</p>
-      <select id="question1">
+      <select id="question2">
         <option value="" disabled selected>Choose your option</option>
         <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
@@ -79,7 +83,7 @@
     <div class="input-field col s12">
       <p>Question 3</p>
       <p>how do you feel about giving up sweets?</p>
-      <select id="question1">
+      <select id="question3">
         <option value="" disabled selected>Choose your option</option>
         <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
@@ -92,7 +96,7 @@
     <div class="input-field col s12">
       <p>Question 4</p>
       <p>Are you a good travel buddy?</p>
-      <select id="question1">
+      <select id="question4">
         <option value="" disabled selected>Choose your option</option>
         <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
@@ -105,7 +109,7 @@
     <div class="input-field col s12">
       <p>Question 5</p>
       <p>Are you a sweet person?</p>
-      <select id="question1">
+      <select id="question5">
         <option value="" disabled selected>Choose your option</option>
         <option value="1">1 (Strongly Disagree)</option>
         <option value="2">2</option>
@@ -116,13 +120,26 @@
     </div>
     </div>
 
-    <button type="submit" class="btn btn-primary submit">Submit</button>
+    <button type="submit" id="submit" class="btn btn-primary submit">Submit</button>
     
+<!-- // modal goes in here
+// note add footer  -->
+<!-- create a div for the whole modal - refer to W3 schools, mdn, mozilla developing network -->
 
-
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Closest Friend Match</h4>
+    <div class="divider"></div>
+    <h5 id="userMatch"></h5>
+    <img id="matchImage" class="materialboxed" width="650" src="">
   </div>
-  <script type="text/javascript">
-		
+  <div class="modal-footer">
+    <a href="/survey" class="modal-action modal-close waves-effect waves-green btn-flat">Fill Again!</a>
+  </div>
+</div>
+
+<script type="text/javascript">
+ 
 		// Activate submit button
     $("#submit").on("click", function(event) {
       event.preventDefault();
@@ -130,27 +147,35 @@
 
 			// Gather user inputs
 			var userInput = {
-				name: $('#userName').val().trim(),
-				photo: $('#userPhoto').val().trim(),
+				name: $('#userName').val(),
+				photo: $('#userPhoto').val(),
 				scores:[
 					$('#question1').val().trim(),
 					$('#question2').val().trim(),
 					$('#question3').val().trim(),
-					$('#question4').val().trim(),
+          $('#question4').val().trim(),
+    
 					$('#question5').val().trim(),
 				
 				]
 			};
 			// console.log('userInput = ' + JSON.stringify(userInput));
 			// Add user inputs to friends list
-			$.post('/api/friends', userInput)
-      		.done(function(data) {
+			$.post('/api/friends', userInput, function(data) {
+        console.log(data);
       			// console.log('response = ' + JSON.stringify(data));
       			// Set the name and image values of friend match
       			$('#userMatch').html(data.matchName);
-		    	$("#userMatchImage").attr("src", data.matchImage);
-		    	// Pop open the modal dialog
-      		
+		    	$("#matchImage").attr("src", data.matchImage);
+		    	//Pop open the modal dialog
+      		   $('.modal').modal({
+      dismissible: false, // Modal can be dismissed by clicking outside of the modal
+      opacity: .5, // Opacity of modal background
+      inDuration: 10000, // Transition in duration
+      outDuration: 10000, // Transition out duration
+      startingTop: '4%', // Starting top style attribute
+      endingTop: '10%' // Ending top style attribute
+    });
       		});
 		});
 	</script>
